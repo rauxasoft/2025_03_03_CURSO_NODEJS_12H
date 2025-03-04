@@ -1,5 +1,5 @@
 const http = require('node:http');
-const equipos = require('./equipos.json');
+const equipos = require('./productos.json');
 
 const processRequest = (_req, res) => {
 
