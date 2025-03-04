@@ -1,4 +1,5 @@
 const http = require('node:http');
+const pc = require('picocolors');
 const productos = require('./productos.json');
 
 // POST /productos (el producto viene en el body)
@@ -15,7 +16,7 @@ const processRequest = (req, res) => {
         switch(url) {
 
             case '/productos': {
-                console.log("pasamos...");
+                console.log(pc.blue("pasamos..."));
                 res.writeHead(200, {'Content-Type':'application/json'});
                 res.end(JSON.stringify(productos));
                 break;
