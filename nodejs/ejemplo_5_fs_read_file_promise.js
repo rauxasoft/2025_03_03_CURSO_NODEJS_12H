@@ -1,5 +1,9 @@
 const fs = require('node:fs/promises')
 
+// Existe la posibilidad de trabajar con promesas si el método de forma natural no me la devuelve
+//const { promisify } = require('node:util')
+//const promesa = promisify(fs.readFile)
+
 console.log("ANTES");
 
 const promesa1 = fs.readFile('./archivo1.txt', 'utf-8');

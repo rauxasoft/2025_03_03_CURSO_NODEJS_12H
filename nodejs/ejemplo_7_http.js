@@ -3,7 +3,7 @@ const equipos = require('./productos.json');
 
 const processRequest = (_req, res) => {
 
-    res.setHeader('Content-Type','application/json');
+    res.setHeader('Content-Type', 'application/json');
     return res.end(JSON.stringify(equipos));
 }
 
