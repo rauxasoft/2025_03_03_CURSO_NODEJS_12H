@@ -58,7 +58,7 @@ const server = http.createServer((req, res) => {
                     // Pasamos pantalla
 
                     res.statusCode = 201;
-                    return res.end(JSON.stringify({error: 'Producto guardado con exito'}));
+                    return res.end(JSON.stringify({mensaje: 'Producto guardado con exito'}));
                 })
 
             } catch(error){
