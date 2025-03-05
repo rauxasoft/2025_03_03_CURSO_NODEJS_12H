@@ -1,0 +1,37 @@
+## Práctica_0 (2025_03_04)
+
+Vamos a crear un servicio que recibirá una request HTTP con un JSON (información de un producto) y lo guardará en un fichero "datos.csv" con valores separados ";"
+
+1.- El objeto JSON representa un producto y tiene la siguiente estructura:
+
+{
+	id: number, 
+	nombre: string,
+	precio: number,
+	descatalogado: boolean
+}
+
+2.- El end-point para crearlo:
+
+POST /productos
+
+3.- El fichero donde se ecribe:
+
+datos.csv
+
+ID;NOMBRE;PRECIO;DESCATALOGADO
+1233;Impresora Epson D-23;250.34;false
+12;Alfombrilla Mouse Atlético de Madrid;10.00;false
+
+- Si el fichero no existe se crea (con la cabecera)
+
+4.- Respuestas HTTP
+
+- Si los tipos del JSON no son correctos: Respuesta con código 400 y mensaje {"error": "Datos inválidos"}
+- Si se produce un error al guardar en el fichero: Respuesta con código 500 y mensaje {"error": "Error al guardar producto"}
+- Si todo va bien: Respuesta 201 y mensaje {"mensaje": "Producto guardado OK"}
+- Si la petición no es POST /productos: Respuesta 404 y mensaje {"error": "ruta no encontrada}
+
+Todas las respuestas deben incluir el header "Content-Type" con valor "application/json"
+
+
