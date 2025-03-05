@@ -5,15 +5,15 @@ const { validateProducto, validatePartialProducto } = require('./schemas/product
 
 const app = express();
 
+// CONFIGURACIÓN DEL SERVIDOR
+
 app.disable('x-powered-by');
 
+// MIDDLEWARE
 
 app.use(express.json()); 
 
-
 // RUTAS
-
-// http://localhost:3000/productos?min=23
 
 app.get('/productos', (req, res) => {
 
@@ -27,7 +27,6 @@ app.get('/productos', (req, res) => {
     return res.json(productos);
 });
 
-
 app.get('/productos/:id', (req, res) => {
 
     const { id } = req.params;
@@ -40,7 +39,7 @@ app.get('/productos/:id', (req, res) => {
         
     return res.json(producto);
 
-})
+});
 
 app.post('/productos', (req, res) => {
 
@@ -60,7 +59,47 @@ app.post('/productos', (req, res) => {
     res.status(201).json(nuevoProducto);
 });
 
+app.delete('/productos/:id', (req, res) => {
+    
+    const { id } = req.params;
 
+    const productoIndex = productos.findIndex(x => x.id === Number(id));
+
+    if(productoIndex === -1){
+        return res.status(404).json({message: 'Producto no encontrado'});
+    }
+
+    productos.splice(productoIndex, 1);
+
+    return res.status(204);
+
+});
+
+app.patch('/productos/:id', (req, res) => {
+
+    const result = validatePartialProducto(req.body);
+
+    if(!result.success) {
+        return res.status(400).json({error: JSON.parse(result.error.message)});
+    }
+
+    const { id } = req.params;
+    const productoIndex = productos.findIndex(x => x.id === Number(id));
+
+    if(productoIndex === -1) {
+        return res.status(404).json({message: "Producto no encontrado"});
+    }
+
+    const productoActualizado = {
+        ...productos[productoIndex],
+        ...result.data
+    }
+
+    productos[productoIndex] = productoActualizado;
+
+    return res.status(204);
+
+});
 
 const PORT = process.env.PORT ?? 3000;
 
