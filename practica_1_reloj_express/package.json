@@ -1,0 +1,19 @@
+{
+  "name": "practica_1_reloj_express",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "4.21.2",
+    "picocolors": "1.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "3.1.9"
+  }
+}
