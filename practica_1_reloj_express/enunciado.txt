@@ -1,5 +1,34 @@
-## Práctica_1 (2025_03_05)
+## Práctica_1 (2025_03_06)
 
-Vamos a crear un servicio de cronometro/temporizador en el backend. Será gestionado via HTTP de la siguiente forma:
+Necesitamos controlar un reloj/temporizador que corre en nuestro servidor via HTTP
+
+Llevaremos a cabo las siguientes acciones:
+
+GET /reloj/start
+GET /reloj/pause
+GET /reloj/resume
+GET /reloj/invert
+GET /reloj/reset
+
+Como respuesta, siempre un header application/json con toda la información del estado del reloj
+
+Para cada acción vamos a escribir un log en nuestro archivo.
+
+TIMESTAMP;ACCION_HTTP;NOMBRE_RELOJ;ESTADO;TOTAL_SEGUNDOS;SENTIDO
+102334000232;start;rolex;RUNNING;0;1
+102334054666;pause;rolex;PAUSED;1022;1
+102335544532;resume;rolex;RUNNING;1022;1
+102335354333;invert;rolex;RUNNING;4988;-1
+102337989992;invert;rolex;RUNNING;210992;1
+102338989222;reset;rolex;STOPPED;0;1
+
+Observaciones:
+
+- usamos Express con un sistema de carpetas standard
+- utilizamos ESModules
+- librerías: picocolors, express, cors
+- librerías dev: nodemon
+
+
 
 
