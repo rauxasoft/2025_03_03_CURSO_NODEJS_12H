@@ -27,6 +27,19 @@ const productoSchema = z.object({
 
 });
 
+// opción strict() -> No funciona para una validación parcial
+// opción refine() -> Para no permitir una propiedad. Se tendrían que crear dos esquemas
+
+/*
+const productoSinIdSchema = productoSchema.omit({ id: true });
+function validatePartialProducto(input){
+    return productoSinIdSchema.partial().safeParse(input);
+
+    // OJO! El problema de esto es que lanza una excepción con un mensaje que hay que tratar. 
+    // Esto implica más trabajo (y a nadie le gusta trabajar)
+}
+*/
+
 function validateProducto(input){
     return productoSchema.safeParse(input)
 }
