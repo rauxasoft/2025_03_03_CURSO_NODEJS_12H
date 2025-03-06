@@ -71,7 +71,7 @@ app.delete('/productos/:id', (req, res) => {
 
     productos.splice(productoIndex, 1);
 
-    return res.status(204);
+    return res.sendStatus(204); // Cómo hacer para que no haya JSON!!!
 
 });
 
@@ -90,6 +90,17 @@ app.patch('/productos/:id', (req, res) => {
         return res.status(404).json({message: "Producto no encontrado"});
     }
 
+    // El id que "manda" es el que llega a través de la path variable. Legados a esta linea, el producto con esa id existe
+    
+    // OPCION1: (substitución) 
+
+    // result.data.id = productos[productoIndex].id; // aquí había un bug
+
+    // OPCION2: Elminación con delete. Si no existe la propiedad no pasa nada. 
+    // Otras opciones son destructurando o utilizando librería Lodash
+
+    delete result.data.id;
+
     const productoActualizado = {
         ...productos[productoIndex],
         ...result.data
@@ -97,13 +108,13 @@ app.patch('/productos/:id', (req, res) => {
 
     productos[productoIndex] = productoActualizado;
 
-    return res.status(204);
+    return res.sendStatus(204); // Cómo hacer para que no haya JSON!!!
 
 });
 
 const PORT = process.env.PORT ?? 3000;
 
 app.listen(PORT, () => {
-    console.log(pc.red(`Servidor escuchando el puerto ${PORT}`));
+    console.log(pc.blue(`Servidor escuchando el puerto ${PORT}`));
 });
 
