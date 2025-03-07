@@ -6,9 +6,9 @@ import picocolors from 'picocolors'
 
 const nombreReloj = process.argv[2] ?? "RELOJ";
 const reloj = new Reloj(nombreReloj);
-
+const DATA_FILE = path.join(process.cwd(), 'logs_reloj.csv');
 const PORT = process.env.PORT ?? 3000;
-const ACTIONS = ['START','PAUSE','RESUME','INVERT','RESET']
+const ACTIONS = ['START','PAUSE','RESUME','INVERT','RESET'];
 
 const app = express();
 app.disable('x-powered-by');
@@ -28,11 +28,11 @@ app.use((req, res, _next) => {
       }
 
       const logReloj = {
-         "nombre": `Reloj ${reloj.nombre}`,
+         "nombre": reloj.nombre,
          "action": ACTION,
          "estado": reloj.estado,
          "totalSegundos": reloj.totalSegundos,
-         "entido": reloj.sentido
+         "sentido": reloj.sentido
       }
 
       auditar(logReloj);
@@ -50,10 +50,23 @@ reloj.eventEmitter.on('timeGoesBy', (reloj) => {
    console.log(`${reloj.nombre}: ${display} ${sentido} [${estado}]`)
 });
 
+const initCSV = () => {
+    if(!fs.existsSync(DATA_FILE)){
+        fs.writeFileSync(DATA_FILE, 'TIMESTAMP;NOMBRE_RELOJ;ESTADO;TOTAL_SEGUNDOS;SENTIDO\n', 'utf8');
+    }
+}
+
 app.listen(PORT, () => {
-    console.log(picocolors.blue(`Servidor escuchando el puerto ${PORT}`));
+   initCSV();
+   console.log(picocolors.blue(`Servidor escuchando el puerto ${PORT}`));
 });
 
-function auditar(logReloj){
-   // TODO Auditar en el fichero de logs...
+const auditar = (logReloj) => {
+
+   const lineaLog = `${Date.now()};${logReloj.nombre};${logReloj.estado};${logReloj.totalSegundos};${logReloj.sentido}\n`;
+
+   fs.appendFile(DATA_FILE, lineaLog, err => {
+      //TODO      
+   });
+   
 }
